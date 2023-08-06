@@ -3,10 +3,10 @@ package oop.taskTreker.Task;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Epic extends TaskIm{
-    private ArrayList<Long> subTaskIds;
+public class Epic extends BaseTask {
+    private final ArrayList<Long> subTaskIds;
     public Epic(String name, String desc) {
-        super(name, desc, "NEW");
+        super(name, desc);
         subTaskIds = new ArrayList<>();
     }
 
@@ -15,9 +15,8 @@ public class Epic extends TaskIm{
         return subTaskIds;
     }
 
-    public Long addSubTasks(Long subtasksId){
+    public void addSubTasks(Long subtasksId){
         subTaskIds.add(subtasksId);
-        return subtasksId;
     }
 
     @Override

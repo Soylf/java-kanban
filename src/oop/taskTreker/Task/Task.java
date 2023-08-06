@@ -2,10 +2,10 @@ package oop.taskTreker.Task;
 
 import java.util.Objects;
 
-public class Task extends TaskIm{
-
+public class Task extends BaseTask {
+    
     public Task(String name, String description) {
-        super(name, description, "NEW");
+        super(name, description);
     }
 
     @Override

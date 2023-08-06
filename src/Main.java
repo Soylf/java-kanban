@@ -13,71 +13,66 @@ public class Main {
 
         Task task1 = new Task("task1", "desc1");
         Task task2 = new Task("task2", "desc2");
+        taskTracker.addNewTask(task1);
+        taskTracker.addNewTask(task2);
 
         Epic epic1 = new Epic("epic1", "desc1");
         Epic epic2 = new Epic("epic2", "desc2");
-        Long EpicId1 = taskTracker.addEpicId(epic1);
-        Long EpicId2 = taskTracker.addEpicId(epic2);
+        taskTracker.addEpicId(epic1);
+        taskTracker.addEpicId(epic2);
 
-        Subtask subtask1 = new Subtask("subtask1", "desc1", EpicId1);
+        Subtask subtask1 = new Subtask("subtask1", "desc1", epic1.getId());
         taskTracker.addSubtaskId(subtask1);
-        Subtask subtask2 = new Subtask("subtask2", "desc2", EpicId1);
+        Subtask subtask2 = new Subtask("subtask2", "desc2", epic1.getId());
         taskTracker.addSubtaskId(subtask2);
-        Subtask subtask3 = new Subtask("subtask3", "desc3",  EpicId2);
+        Subtask subtask3 = new Subtask("subtask3", "desc3",  epic2.getId());
         taskTracker.addSubtaskId(subtask3);
 
-        for (Epic epic : taskTracker.getEpics()) {
-            System.out.println(epic);
+        System.out.println(taskTracker.getTasks());
+        System.out.println(taskTracker.getEpics());
+        System.out.println(taskTracker.getSubTasks());
+
+
+        System.out.println("-----");
+        System.out.println(taskTracker.getTaskId(task1.getId()));
+        System.out.println(taskTracker.getEpicId(subtask1.getEpicId()));
+        for (Long num : epic1.getSubTaskIds()){
+            System.out.println(taskTracker.getSubtaskId(num));
         }
+        System.out.println("-----");
 
-        for (Task task : taskTracker.getTasks()) {
-            System.out.println(task);
+
+        taskTracker.deleteEpicId(2,epic1);
+
+        System.out.println(taskTracker.getTaskId(task1.getId()));
+        System.out.println(taskTracker.getEpicId(subtask1.getEpicId()));
+        for (Long num : epic1.getSubTaskIds()){
+            System.out.println(taskTracker.getSubtaskId(num));
         }
+        System.out.println("-----");
+        Task task3 = new Task("task3", "desc3");
+        taskTracker.addNewTask(task3);
+        Epic epic3 = new Epic("epic3", "desc3");
+        taskTracker.addEpicId(epic3);
+        Subtask subtask4 = new Subtask("subtask4", "desc4", epic3.getId());
+        taskTracker.addSubtaskId(subtask4);
 
-        for (Subtask subtask : taskTracker.getSubTasks()) {
-            System.out.println(subtask);
-
+        System.out.println(taskTracker.getTaskId(task3.getId()));
+        System.out.println(taskTracker.getEpicId(subtask4.getEpicId()));
+        for (Long num : epic3.getSubTaskIds()){
+            System.out.println(taskTracker.getSubtaskId(num));
         }
-                System.out.println("-----");
-        taskTracker.updateSubtaskIN_PROGRESS(subtask3);
-        System.out.println(subtask3);
-        System.out.println(epic2);
-
-        taskTracker.removeTaskById(task1.getId());
-        taskTracker.removeEpicById(epic1.getId());
-
+        System.out.println("-----");
+        taskTracker.updateSubtaskIN_PROGRESS(subtask4);
+        taskTracker.removeEpicById(epic3);
+        System.out.println(taskTracker.getTaskId(task3.getId()));
+        System.out.println(taskTracker.getEpicId(subtask4.getEpicId()));
+        taskTracker.removeSybTaskEpicId(epic3, subtask4);
+        for (Long num : epic3.getSubTaskIds()){
+            System.out.println(taskTracker.getSubtaskId(num));
+        }
+        System.out.println("-----");
+        taskTracker.deleteAll();
+        System.out.println("-----");
+        }
     }
-    //Таакс, я понимаю что возможно не правильно но я уже запутался как-это делать
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-    Методы для каждого из типа задач(Задача/Эпик/Подзадача):
-            Получение списка всех задач.
-            Удаление всех задач. +
-            Получение по идентификатору. +-
-            Создание. Сам объект должен передаваться в качестве параметра.
-            Обновление. Новая версия объекта с верным идентификатором передаётся в виде параметра.
-            Удаление по идентификатору. +
-    Дополнительные методы:
-            Получение списка всех подзадач определённого эпика.
-    Управление статусами осуществляется по следующему правилу:+
-            Менеджер сам не выбирает статус для задачи. Информация о нём приходит менеджеру вместе с информацией о самой задаче. По этим данным в одних случаях он будет сохранять статус, в других будет рассчитывать.
-            Для эпиков:
-            если у эпика нет подзадач или все они имеют статус NEW, то статус должен быть NEW.+
-            если все подзадачи имеют статус DONE, то и эпик считается завершённым — со статусом DONE.+
-            во всех остальных случаях статус должен быть IN_PROGRESS.+
-
- */

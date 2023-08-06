@@ -2,18 +2,20 @@ package oop.taskTreker.Task;
 
 import java.util.Objects;
 
-public class Subtask extends TaskIm{
+public class Subtask extends BaseTask {
     private Long epicId;
 
     public Subtask( String name, String desc,Long epicId) {
-        super( name, desc, "NEW");
+        super( name, desc);
         this.epicId = epicId;
     }
 
     public Long getEpicId() {
         return epicId;
     }
-
+    public void setEpicId(Long id) {
+        epicId = id;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -34,14 +36,15 @@ public class Subtask extends TaskIm{
 
     @Override
     public String toString() {
-        return "Subtask{" + '\n' +
-                " name='" + getName() + '\n' +
-                " description='" + getDesc() + '\n' +
-                " id=" + getId() + '\n' +
-                " status=" + getStatus() + '\n' +
-                " parentEpicId=" + getEpicId() + '\n' +
+        return "Subtask{" +
+                "name='" + getName() + '\'' +
+                ", description='" + getDesc() + '\'' +
+                ", id=" + getId() +
+                ", status=" + getStatus() +
+                ", epicId=" + getEpicId() +
                 '}';
     }
+
 }
 
 

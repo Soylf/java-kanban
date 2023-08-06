@@ -1,6 +1,7 @@
 package oop.taskTreker.manager;
 
 import oop.taskTreker.Task.Epic;
+import oop.taskTreker.Task.Status;
 import oop.taskTreker.Task.Subtask;
 import oop.taskTreker.Task.Task;
 
@@ -11,57 +12,52 @@ import java.util.List;
 
 public class TaskTracker{
 
-    private HashMap<Long, Epic> epics = new HashMap<>();
-    private HashMap<Long, Subtask> subTasks = new HashMap<>();
-    private  HashMap<Long, Task> tasks = new HashMap<>();
-    private long generId = 0;
-
-    private Long generateId() {
-        return  generId++;
-    }
-    //
-    public void taskPrint(){
+    IdGenerator generateId = new IdGenerator();
+    private final HashMap<Long, Epic> epics = new HashMap<>();
+    private final HashMap<Long, Subtask> subTasks = new HashMap<>();
+    private final HashMap<Long, Task> tasks = new HashMap<>();
 
 
 
-    }
+
+
 
 
     //Создание айдишника
-    public long addEpicId(Epic epic) {
-        long id = generateId();
-        epic.setId(id);
-        epics.put(id,epic);
-        return id;
-    }
-    public Long addSubtaskId(Subtask subtask) {
-        subtask.setId(generateId());
-        if(epics == null) {
-            return null;
-        }
+    public void addEpicId(Epic epic) {
 
+        epic.setId(generateId.generateId());
+        epics.put(epic.getId(),epic);
+
+    }
+
+    public void addSubtaskId(Subtask subtask) {
+
+        subtask.setId(generateId.generateId());
         subTasks.put(subtask.getId(), subtask);
         Epic epic = epics.get(subtask.getEpicId());
         epic.addSubTasks(subtask.getId());
         updateEpicStat(subtask.getEpicId());
-        return subtask.getId();
+
     }
-    public Task addNewTask(Task task) {
-        task.setId(generateId());
+    public void addNewTask(Task task) {
+
+        task.setId(generateId.generateId());
         tasks.put(task.getId(),task);
-        return task;
+
+
     }
 
 
     //статусы
     public void updateSubtaskIN_PROGRESS(Subtask subtask){
         Subtask subtask1 = subTasks.get(subtask.getId());
-        subtask1.setStatus("IN_PROGRESS");
+        subtask1.setStatus(String.valueOf(Status.IN_PROGRESS));
         updateEpicStat(subtask.getEpicId());
     }
     public void updateSubtaskDONE(Subtask subtask){
         Subtask subtask1 = subTasks.get(subtask.getId());
-        subtask1.setStatus("DONE");
+        subtask1.setStatus(String.valueOf(Status.DONE));
         updateEpicStat(subtask.getEpicId());
     }
     private void updateEpicStat(long epicId){
@@ -103,43 +99,30 @@ public class TaskTracker{
 
 
     //удаление задач
-    public void deleteEpicId(long key){
-        if(epics == null) {
-            System.out.println("Задачь и так нету...");
-        }else {
-            epics.remove(key);
-            System.out.println("Задача удалена <3");
+    public void deleteEpicId(long key,Epic epic1){
+        epics.remove(key);
+
+        for (Long num : epic1.getSubTaskIds()){
+            subTasks.remove(num);
         }
-    }
-    public void deleteAll(){
-        if(epics == null) {
-            System.out.println("Задачь и так нету...");
-        }else {
-            epics.clear();
-            subTasks.clear();
-            System.out.println("Все задачи удалены <3");
-        }
+        System.out.println("Задача удалена <3");
     }
 
-    // получение
-    public void receivingEpicId(long key) {
-        if(epics == null) {
-            System.out.println("Задачь и так нету...");
-        } else {
-            System.out.println(epics.get(key));
-        }
+    public void deleteAll(){
+        epics.clear();
+        tasks.clear();
+        subTasks.clear();
+        System.out.println("Все задачи удалены <3");
     }
 
     //обновление
-    public Task removeTaskById(Long id) {
-        return tasks.remove(id);
+
+
+    public void removeEpicById(Epic epic) {
+        epic.setId(generateId.generateId());
     }
-    public Epic removeEpicById(Long id) {
-        Epic epic = epics.remove(id);
-        for (Subtask subtask : getSubTasks()) {
-            removeTaskById(subtask.getId());
-        }
-        return epic;
+    public void  removeSybTaskEpicId(Epic epic,Subtask subtask){
+        subtask.setEpicId(epic.getId());
     }
 
 
@@ -148,13 +131,23 @@ public class TaskTracker{
     public List<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
+    public Epic getEpicId(Long id) {
+        return epics.get(id);
+    }
 
 
     public List<Subtask> getSubTasks() {
         return new ArrayList<>(subTasks.values());
     }
+    public Subtask getSubtaskId(Long id) {
+        return subTasks.get(id);
+    }
+
 
     public List<Task> getTasks() {
         return new ArrayList<>(tasks.values());
+    }
+    public Task getTaskId(Long id) {
+        return tasks.get(id);
     }
 }

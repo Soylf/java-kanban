@@ -1,16 +1,16 @@
 package oop.taskTreker.Task;
 
-public class TaskIm {
+public class BaseTask {
     protected Long id;
     protected String name;
     protected String desc;
     protected String status;
 
-    public TaskIm(String name, String desc, String status) {
+    public BaseTask(String name, String desc) {
 
         this.name = name;
         this.desc = desc;
-        this.status = status;
+        status = String.valueOf(Status.NEW);
 
     }
 
