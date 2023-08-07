@@ -1,4 +1,4 @@
-package oop.taskTreker.Task;
+package oop.taskTreker.task;
 
 import java.util.Objects;
 

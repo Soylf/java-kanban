@@ -1,4 +1,4 @@
-package oop.taskTreker.Task;
+package oop.taskTreker.task;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -9,6 +9,7 @@ public class Epic extends BaseTask {
         super(name, desc);
         subTaskIds = new ArrayList<>();
     }
+
 
 
     public ArrayList<Long> getSubTaskIds() {
