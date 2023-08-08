@@ -34,6 +34,8 @@ public class Main {
 
 
         System.out.println("-----");
+        taskTracker.updateSubtaskDONE(subtask1);
+        taskTracker.deleteSubtasks();
         System.out.println(taskTracker.getTaskId(task1.getId()));
         System.out.println(taskTracker.getEpicId(subtask1.getEpicId()));
         for (Long num : epic1.getSubTaskIds()) {

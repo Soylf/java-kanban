@@ -58,28 +58,37 @@ public class TaskTracker{
         updateEpicStat(subtask.getEpicId());
     }
 
-    private void updateEpicStat(long epicId){
-        Epic epic = epics.get(epicId);
-        ArrayList<Long> subs = epic.getSubTaskIds();
-        if (subs.isEmpty()) {
-            epic.setStatus("NEW");
-            return;
-        }
-        String status = null;
-        for (Long id : subs) {
-            final Subtask subtask = subTasks.get(id);
-            if (status == null) {
-                status = subtask.getStatus();
-                continue;
+    private void updateEpicStat(Long epicId){
+        if(epicId == null) {
+            Epic epic = epics.get(null);
+            for (Long epicKey: epics.keySet()){
+                epic = epics.get(epicKey);
+                epic.setStatus("NEW");
             }
-            if (status.equals(subtask.getStatus())
-                    && !status.equals("IN_PROGRESS")) {
-                continue;
-            }
-            epic.setStatus("IN_PROGRESS");
             return;
+        }else {
+            Epic epic = epics.get(epicId);
+            ArrayList<Long> subs = epic.getSubTaskIds();
+            if (subs.isEmpty()) {
+                epic.setStatus("NEW");
+                return;
+            }
+            String status = null;
+            for (Long id : subs) {
+                final Subtask subtask = subTasks.get(id);
+                if (status == null) {
+                    status = subtask.getStatus();
+                    continue;
+                }
+                if (status.equals(subtask.getStatus())
+                        && !status.equals("IN_PROGRESS")) {
+                    continue;
+                }
+                epic.setStatus("IN_PROGRESS");
+                return;
+            }
+            epic.setStatus(status);
         }
-        epic.setStatus(status);
     }
 
 
@@ -87,10 +96,12 @@ public class TaskTracker{
     public void deleteTask(Task task) {
         tasks.remove(task.getId());
         System.out.println("Задача под номером " + task.getId() + " удалена");
+
     }
 
     public void deleteSubtask(Subtask subtask) {
         subTasks.remove(subtask.getId());
+        updateEpicStat(subtask.getEpicId());
         System.out.println("Подзадача под номером " + subtask.getId() + " удалена");
     }
 
@@ -100,9 +111,11 @@ public class TaskTracker{
 
     public void deleteSubtasks() {
         subTasks.clear();
+        updateEpicStat(null);
     }
 
     public void deleteEpics() {
+        subTasks.clear();
         epics.clear();
     }
 
