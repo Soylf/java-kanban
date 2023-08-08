@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Epic extends BaseTask {
-    private final ArrayList<Long> subTaskIds;
+    private  ArrayList<Long> subTaskIds;
     public Epic(String name, String desc) {
         super(name, desc);
         subTaskIds = new ArrayList<>();
@@ -14,6 +14,10 @@ public class Epic extends BaseTask {
 
     public ArrayList<Long> getSubTaskIds() {
         return subTaskIds;
+    }
+
+    public void setSubTaskIds(ArrayList<Long> subTaskIds) {
+        this.subTaskIds = subTaskIds;
     }
 
     public void addSubTasks(Long subtasksId){

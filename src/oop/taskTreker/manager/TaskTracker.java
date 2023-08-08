@@ -95,14 +95,21 @@ public class TaskTracker{
     //удаление задач
     public void deleteTask(Task task) {
         tasks.remove(task.getId());
-        System.out.println("Задача под номером " + task.getId() + " удалена");
+
 
     }
 
-    public void deleteSubtask(Subtask subtask) {
+    public void deleteSubtask(Subtask subtask,Epic epic) {
+        ArrayList<Long> newEpicSubId = new ArrayList<>();
         subTasks.remove(subtask.getId());
         updateEpicStat(subtask.getEpicId());
-        System.out.println("Подзадача под номером " + subtask.getId() + " удалена");
+        for (Long num: epic.getSubTaskIds()) {
+            if(Objects.equals(num, subtask.getId())) {
+                num = null;
+            }
+            newEpicSubId.add(num);
+        }
+        epic.setSubTaskIds(newEpicSubId);
     }
 
     public void deleteTasks() {
@@ -125,14 +132,14 @@ public class TaskTracker{
         for (Long num : epic1.getSubTaskIds()){
             subTasks.remove(num);
         }
-        System.out.println("Задача удалена <3");
+
     }
 
     public void deleteAll(){
         epics.clear();
         tasks.clear();
         subTasks.clear();
-        System.out.println("Все задачи удалены <3");
+
     }
 
 
