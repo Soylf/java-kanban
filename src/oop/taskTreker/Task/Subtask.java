@@ -2,7 +2,7 @@ package oop.taskTreker.task;
 
 import java.util.Objects;
 
-public class Subtask extends BaseTask {
+public class Subtask extends Task {
     private Long epicId;
 
     public Subtask( String name, String desc,Long epicId) {

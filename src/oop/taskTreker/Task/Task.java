@@ -2,11 +2,55 @@ package oop.taskTreker.task;
 
 import java.util.Objects;
 
-public class Task extends BaseTask {
-    
-    public Task(String name, String description) {
-        super(name, description);
+public class Task {
+
+    protected Long id;
+    protected String name;
+    protected String desc;
+    protected String status;
+
+    public Task(String name, String desc) {
+
+        this.name = name;
+        this.desc = desc;
+        status = String.valueOf(Status.NEW);
+
     }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {

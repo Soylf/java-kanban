@@ -1,13 +1,15 @@
+import oop.taskTreker.manager.InMemoryHistoryManager;
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Subtask;
 import oop.taskTreker.task.Task;
-import oop.taskTreker.manager.TaskTracker;
+import oop.taskTreker.manager.InMemoryTaskManager;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        TaskTracker taskTracker = new TaskTracker();
+        InMemoryTaskManager taskTracker = new InMemoryTaskManager();
+        InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
         Scanner scanner = new Scanner(System.in);
 
 
@@ -35,13 +37,17 @@ public class Main {
 
         System.out.println("-----");
         taskTracker.updateSubtaskDONE(subtask1);
-        taskTracker.deleteSubtasks();
+
         System.out.println(taskTracker.getTaskId(task1.getId()));
         System.out.println(taskTracker.getEpicId(subtask1.getEpicId()));
         for (Long num : epic1.getSubTaskIds()) {
             System.out.println(taskTracker.getSubtaskId(num));
         }
         System.out.println(taskTracker.getEpicSubtasks(epic1.getId()));
+        inMemoryHistoryManager.add(task1);
+        inMemoryHistoryManager.add(task2);
+
+        System.out.println(inMemoryHistoryManager.getHistory());
         System.out.println("-----");
 
 

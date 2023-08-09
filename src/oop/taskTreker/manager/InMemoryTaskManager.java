@@ -11,31 +11,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class TaskTracker{
+public class InMemoryTaskManager implements TaskManager {
 
     IdGenerator generateId = new IdGenerator();
     private final HashMap<Long, Epic> epics = new HashMap<>();
     private final HashMap<Long, Subtask> subTasks = new HashMap<>();
     private final HashMap<Long, Task> tasks = new HashMap<>();
+    private List<Task> history;
 
     //Создание айдишника
-    public void addEpicId(Epic epic) {
 
+    @Override
+    public void addEpicId(Epic epic) {
         epic.setId(generateId.generateId());
         epics.put(epic.getId(),epic);
-
     }
 
+    @Override
     public void addSubtaskId(Subtask subtask) {
-
         subtask.setId(generateId.generateId());
         subTasks.put(subtask.getId(), subtask);
         Epic epic = epics.get(subtask.getEpicId());
         epic.addSubTasks(subtask.getId());
         updateEpicStat(subtask.getEpicId());
-
     }
-
+    @Override
     public void addNewTask(Task task) {
 
         task.setId(generateId.generateId());
@@ -45,7 +45,7 @@ public class TaskTracker{
     }
 
 
-    //статусы
+    //статусы - доп
     public void updateSubtaskIN_PROGRESS(Subtask subtask){
         Subtask subtask1 = subTasks.get(subtask.getId());
         subtask1.setStatus(String.valueOf(Status.IN_PROGRESS));
@@ -58,14 +58,13 @@ public class TaskTracker{
         updateEpicStat(subtask.getEpicId());
     }
 
-    private void updateEpicStat(Long epicId){
+    private void updateEpicStat(Long epicId){ //доп
         if(epicId == null) {
             Epic epic = epics.get(null);
             for (Long epicKey: epics.keySet()){
                 epic = epics.get(epicKey);
                 epic.setStatus("NEW");
             }
-            return;
         }else {
             Epic epic = epics.get(epicId);
             ArrayList<Long> subs = epic.getSubTaskIds();
@@ -91,41 +90,39 @@ public class TaskTracker{
         }
     }
 
-
     //удаление задач
+    @Override
     public void deleteTask(Task task) {
         tasks.remove(task.getId());
 
 
     }
-
-    public void deleteSubtask(Subtask subtask,Epic epic) {
-        ArrayList<Long> newEpicSubId = new ArrayList<>();
-        subTasks.remove(subtask.getId());
-        updateEpicStat(subtask.getEpicId());
-        for (Long num: epic.getSubTaskIds()) {
-            if(Objects.equals(num, subtask.getId())) {
-                num = null;
-            }
-            newEpicSubId.add(num);
+    @Override
+    public void deleteSubtask(Subtask subtask) {
+        Epic epic = getEpicId(subtask.getEpicId());
+        if (epic != null) {
+            ArrayList<Long> subTaskIds = epic.getSubTaskIds();
+            subTaskIds.remove(subtask.getId());
+            epic.setSubTaskIds(subTaskIds);
+            subTasks.remove(subtask.getId());
+            updateEpicStat(epic.getId());
         }
-        epic.setSubTaskIds(newEpicSubId);
     }
-
+    @Override
     public void deleteTasks() {
         tasks.clear();
     }
-
+    @Override
     public void deleteSubtasks() {
         subTasks.clear();
         updateEpicStat(null);
     }
-
+    @Override
     public void deleteEpics() {
         subTasks.clear();
         epics.clear();
     }
-
+    @Override
     public void deleteEpicId(long key,Epic epic1){
         epics.remove(key);
 
@@ -134,7 +131,7 @@ public class TaskTracker{
         }
 
     }
-
+    @Override
     public void deleteAll(){
         epics.clear();
         tasks.clear();
@@ -144,14 +141,15 @@ public class TaskTracker{
 
 
     //обновление значений
+    @Override
     public void removeEpicById(Epic epic) {
         epic.setId(generateId.generateId());
     }
-
+    @Override
     public void  removeSybTaskEpicId(Epic epic,Subtask subtask){
         subtask.setEpicId(epic.getId());
     }
-
+    @Override
     public Task updateTask(Task task) {
         Task currentTask = tasks.get(task.getId());
         if (currentTask == null) {
@@ -159,7 +157,7 @@ public class TaskTracker{
         }
         return tasks.put(task.getId(), task);
     }
-
+    @Override
     public Subtask updateSubtask(Subtask subtask) {
         Subtask currentSubtask = subTasks.get(subtask.getId());
         if (currentSubtask == null) {
@@ -168,7 +166,7 @@ public class TaskTracker{
         updateEpicStat(subtask.getEpicId());
         return subTasks.put(subtask.getId(), subtask);
     }
-
+    @Override
     public Epic updateEpic(Epic epic) {
         Epic currentEpic = epics.get(epic.getId());
         if (currentEpic == null) {
@@ -177,6 +175,7 @@ public class TaskTracker{
         updateEpicStat(epic.getId());
         return epics.put(epic.getId(), epic);
     }
+
 
 
     // гетеры
@@ -216,4 +215,6 @@ public class TaskTracker{
         }
         return subtasks;
     }
+
+
 }
