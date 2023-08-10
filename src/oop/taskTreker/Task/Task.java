@@ -7,13 +7,13 @@ public class Task {
     protected Long id;
     protected String name;
     protected String desc;
-    protected String status;
+    protected Status status;
 
     public Task(String name, String desc) {
 
         this.name = name;
         this.desc = desc;
-        status = String.valueOf(Status.NEW);
+        status = Status.NEW;
 
     }
 
@@ -42,12 +42,12 @@ public class Task {
         this.desc = desc;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.status = Status.valueOf(status);
     }
 
 

@@ -11,13 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import static oop.taskTreker.manager.Managers.getDefaultHistory;
+
 public class InMemoryTaskManager implements TaskManager {
 
     IdGenerator generateId = new IdGenerator();
     private final HashMap<Long, Epic> epics = new HashMap<>();
     private final HashMap<Long, Subtask> subTasks = new HashMap<>();
     private final HashMap<Long, Task> tasks = new HashMap<>();
-    private List<Task> history;
+    private final HistoryManager inMemoryHistoryManager = getDefaultHistory();
 
     //Создание айдишника
 
@@ -76,7 +78,7 @@ public class InMemoryTaskManager implements TaskManager {
             for (Long id : subs) {
                 final Subtask subtask = subTasks.get(id);
                 if (status == null) {
-                    status = subtask.getStatus();
+                    status = String.valueOf(subtask.getStatus());
                     continue;
                 }
                 if (status.equals(subtask.getStatus())

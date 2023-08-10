@@ -8,39 +8,39 @@ import java.util.List;
 
 public interface TaskManager {
     //Id
-    abstract void addEpicId(Epic epic);
+     void addEpicId(Epic epic);
 
-    abstract void addSubtaskId(Subtask subtask);
+     void addSubtaskId(Subtask subtask);
 
-    abstract void addNewTask(Task task);
+     void addNewTask(Task task);
 
     //Delete
-    abstract void deleteTask(Task task);
+     void deleteTask(Task task);
 
-    abstract void deleteSubtask(Subtask subtask);
+     void deleteSubtask(Subtask subtask);
 
-    abstract void deleteEpicId(long key,Epic epic1);
+     void deleteEpicId(long key,Epic epic1);
 
-    abstract void deleteAll();
+     void deleteAll();
 
-    abstract public void deleteTasks();
+     public void deleteTasks();
 
-    abstract public void deleteSubtasks();
+     public void deleteSubtasks();
 
-    abstract void deleteEpics();
+     void deleteEpics();
 
     //Remove
-    abstract void removeEpicById(Epic epic);
+     void removeEpicById(Epic epic);
 
 
-    abstract void removeSybTaskEpicId(Epic epic, Subtask subtask);
+     void removeSybTaskEpicId(Epic epic, Subtask subtask);
 
     //Update
-    abstract Task updateTask(Task task);
+     Task updateTask(Task task);
 
-    abstract Subtask updateSubtask(Subtask subtask);
+     Subtask updateSubtask(Subtask subtask);
 
-    abstract Epic updateEpic(Epic epic);
+     Epic updateEpic(Epic epic);
 
     //Новое
 
