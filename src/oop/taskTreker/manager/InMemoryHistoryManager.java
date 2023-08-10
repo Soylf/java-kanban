@@ -7,6 +7,7 @@ import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
     private final ArrayList<Task> historyOfViews = new ArrayList<>();
+    private final Integer LIMIT_OF_HISTORY_SIZE = 10;
 
     @Override
     public void add(Task task) {
@@ -14,7 +15,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             return;
         }
         historyOfViews.add(task);
-        if (historyOfViews.size() >= 10) {
+        if (historyOfViews.size() >= LIMIT_OF_HISTORY_SIZE) {
             historyOfViews.remove(0);
         }
     }

@@ -23,10 +23,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     //Создание айдишника
 
-    @Override
     public void addEpicId(Epic epic) {
         epic.setId(generateId.generateId());
         epics.put(epic.getId(),epic);
+        inMemoryHistoryManager.add(epic);
     }
 
     @Override
@@ -36,12 +36,14 @@ public class InMemoryTaskManager implements TaskManager {
         Epic epic = epics.get(subtask.getEpicId());
         epic.addSubTasks(subtask.getId());
         updateEpicStat(subtask.getEpicId());
+        inMemoryHistoryManager.add(epic);
     }
     @Override
     public void addNewTask(Task task) {
 
         task.setId(generateId.generateId());
         tasks.put(task.getId(),task);
+        inMemoryHistoryManager.add(task);
 
 
     }
