@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
     //private final ArrayList<Task> historyOfViews = new ArrayList<>();
-    private final Integer LIMIT_OF_HISTORY_SIZE = 10;
     private final Map<Long,Node> nodeMap = new HashMap<>();
     private Node first;
     private Node last;
@@ -33,7 +32,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(long id) {
-        Node node = nodeMap.get(id);
+        Node node = nodeMap.remove(id);
         if(node == null) {
             return;
         }
