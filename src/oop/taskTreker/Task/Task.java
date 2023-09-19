@@ -18,6 +18,15 @@ public class Task {
     }
 
 
+    public Task(long id, TaskType type, String name, String status, String desc, String val) {
+        super();
+    }
+
+    public TaskType getType (){
+        return TaskType.TASK;
+    }
+
+
     public Long getId() {
         return id;
     }
