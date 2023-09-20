@@ -1,16 +1,16 @@
-package oop.taskTreker.manager;
+package oop.taskTreker.manager.fileSaves;
 
+import oop.taskTreker.manager.history.InMemoryHistoryManager;
+import oop.taskTreker.manager.history.InMemoryTaskManager;
+import oop.taskTreker.manager.managersTask.TaskManager;
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Subtask;
 import oop.taskTreker.task.Task;
-
 import java.io.*;
-
-import static oop.taskTreker.manager.CSVFormatter.historyToString;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
 
-    public static FileBackedTasksManager loadFile (File file) {
+    public static FileBackedTasksManager loadFile(File file) { // неочень понимаю как реализовать
         TaskManager newTaskManager = new FileBackedTasksManager(file);
 
         try (Reader reader = new FileReader(String.valueOf(file))) {
@@ -21,16 +21,21 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ManagerSaveException(e);
         }
         return null;
+    }
+    private static class ManagerSaveException extends RuntimeException {
+        public ManagerSaveException(IOException message) {
+            super(message);
+        }
     }
 
     /**
      * @param file
      * Формат: id,type,name,status,description,epic
      */
-    public FileBackedTasksManager (File file) {
+    public FileBackedTasksManager(File file) {
 
     }
 
@@ -54,4 +59,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             e.printStackTrace();
         }
     }
+
+
 }

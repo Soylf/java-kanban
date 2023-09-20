@@ -1,5 +1,7 @@
-package oop.taskTreker.manager;
+package oop.taskTreker.manager.history;
 
+import oop.taskTreker.manager.IdGenerator;
+import oop.taskTreker.manager.managersTask.TaskManager;
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Status;
 import oop.taskTreker.task.Subtask;
@@ -11,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import static oop.taskTreker.manager.Managers.getDefaultHistory;
+import static oop.taskTreker.manager.managersTask.Managers.getDefaultHistory;
 
 public class InMemoryTaskManager implements TaskManager {
 

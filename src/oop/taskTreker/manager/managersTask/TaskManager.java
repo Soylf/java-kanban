@@ -1,4 +1,4 @@
-package oop.taskTreker.manager;
+package oop.taskTreker.manager.managersTask;
 
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Subtask;

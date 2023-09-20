@@ -1,4 +1,8 @@
-package oop.taskTreker.manager;
+package oop.taskTreker.manager.managersTask;
+
+import oop.taskTreker.manager.history.HistoryManager;
+import oop.taskTreker.manager.history.InMemoryHistoryManager;
+import oop.taskTreker.manager.history.InMemoryTaskManager;
 
 public final class Managers {
 
