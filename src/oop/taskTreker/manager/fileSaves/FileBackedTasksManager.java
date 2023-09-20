@@ -1,7 +1,7 @@
 package oop.taskTreker.manager.fileSaves;
 
 import oop.taskTreker.manager.history.InMemoryHistoryManager;
-import oop.taskTreker.manager.history.InMemoryTaskManager;
+import oop.taskTreker.manager.managersTask.InMemoryTaskManager;
 import oop.taskTreker.manager.managersTask.TaskManager;
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Subtask;

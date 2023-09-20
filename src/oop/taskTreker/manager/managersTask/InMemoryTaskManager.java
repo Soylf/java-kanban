@@ -1,6 +1,7 @@
-package oop.taskTreker.manager.history;
+package oop.taskTreker.manager.managersTask;
 
 import oop.taskTreker.manager.IdGenerator;
+import oop.taskTreker.manager.history.HistoryManager;
 import oop.taskTreker.manager.managersTask.TaskManager;
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Status;

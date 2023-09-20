@@ -2,7 +2,7 @@ import oop.taskTreker.manager.history.InMemoryHistoryManager;
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Subtask;
 import oop.taskTreker.task.Task;
-import oop.taskTreker.manager.history.InMemoryTaskManager;
+import oop.taskTreker.manager.managersTask.InMemoryTaskManager;
 
 import java.util.Scanner;
 
