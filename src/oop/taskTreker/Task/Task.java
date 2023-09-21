@@ -22,6 +22,10 @@ public class Task {
         super();
     }
 
+    public Task() {
+
+    }
+
     public TaskType getType (){
         return TaskType.TASK;
     }

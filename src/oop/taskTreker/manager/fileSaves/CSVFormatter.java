@@ -81,11 +81,10 @@ public class CSVFormatter {
     }
 
     //к
-    static List<Integer> historyFromString(String historyStr) {
+    static List<Long> historyFromString(String historyStr) {
         if (historyStr.isEmpty()) {
             return Collections.emptyList();
         } else {
-            return Arrays.stream(historyStr.split(";")).map(Integer::parseInt).collect(Collectors.toList());
-        }
+            return Arrays.stream(historyStr.split(";")).map(Long::parseLong).collect(Collectors.toList());    }
     }
 }

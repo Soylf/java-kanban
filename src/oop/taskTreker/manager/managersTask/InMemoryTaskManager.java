@@ -2,7 +2,6 @@ package oop.taskTreker.manager.managersTask;
 
 import oop.taskTreker.manager.IdGenerator;
 import oop.taskTreker.manager.history.HistoryManager;
-import oop.taskTreker.manager.managersTask.TaskManager;
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Status;
 import oop.taskTreker.task.Subtask;
@@ -197,7 +196,13 @@ public class InMemoryTaskManager implements TaskManager {
     public List<Subtask> getSubTasks() {
         return new ArrayList<>(subTasks.values());
     }
+    public HashMap<Long, Subtask> subTasksFull() {
+        return subTasks;
+    }
 
+    public HashMap<Long, Epic> epicsFull() {
+        return epics;
+    }
     public Subtask getSubtaskId(Long id) {
         return subTasks.get(id);
     }
