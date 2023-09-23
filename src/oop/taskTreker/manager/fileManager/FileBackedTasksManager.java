@@ -28,7 +28,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         final FileBackedTasksManager taskManager = new FileBackedTasksManager(file);
         try {
             final String csv = Files.readString(file.toPath());
-            final String[] lines = csv.split(System.lineSeparator());
+            final String[] lines = csv.split("\n");
             int generatorId = 0;
             List<Long> history = Collections.emptyList();
             for (int i = 1; i < lines.length; i++) {
