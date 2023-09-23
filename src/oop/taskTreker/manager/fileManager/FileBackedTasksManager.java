@@ -1,7 +1,7 @@
-package oop.taskTreker.manager.fileSaves;
+package oop.taskTreker.manager.fileManager;
 
-import oop.taskTreker.manager.history.InMemoryHistoryManager;
-import oop.taskTreker.manager.managersTask.InMemoryTaskManager;
+import oop.taskTreker.manager.historyManager.InMemoryHistoryManager;
+import oop.taskTreker.manager.InMemoryTaskManager;
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Subtask;
 import oop.taskTreker.task.Task;
@@ -14,12 +14,17 @@ import java.util.Map;
 public class FileBackedTasksManager extends InMemoryTaskManager {
     public FileBackedTasksManager(File file) {}
 
+    public static class ManagerSaveException extends RuntimeException {
+        public ManagerSaveException(IOException message) {
+            super(message);
+        }
+    }
+
     /**
      * @param file
      * Формат: id,type,name,status,description,epic
      */
-    public static FileBackedTasksManager loadFromFile(File file) {
-        InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
+    public static FileBackedTasksManager loadFromFile(File file) { // немного переделал, наверное не правильно, но по идеи так и не вызовит колизии
         final FileBackedTasksManager taskManager = new FileBackedTasksManager(file);
         try {
             final String csv = Files.readString(file.toPath());
@@ -33,34 +38,25 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     break;
                 }
                 final Task task = CSVFormatter.fromString(line);
-                final int id = Math.toIntExact(task.getId());
+                final long id = task.getId();
                 if (id > generatorId) {
-                    generatorId = id;
+                    generatorId = (int) id;
                 }
                 taskManager.addNewTask(task);
             }
-            for (Map.Entry<Long, Subtask> e : taskManager.subTasksFull().entrySet()) {
-                final Subtask subtask = e.getValue();
-                final Epic epic = taskManager.epicsFull().get(subtask.getEpicId());
-                epic.addSubTasks(subtask.getId());
+            for (Subtask subtask : taskManager.getSubTasks()) {
+                final Epic epic1 = taskManager.getEpicId(subtask.getEpicId());
+                epic1.addSubTasks(subtask.getId());
             }
             for (Long taskId : history) {
-                inMemoryHistoryManager.add(taskManager.getTaskId(taskId));
-
+                taskManager.inMemoryHistoryManager.add(taskManager.getTaskId(taskId));
             }
-            //taskManager.generatorId = generatorId; не понял зачем оно тут
         } catch (IOException e) {
             throw new ManagerSaveException(e);
         }
         return taskManager;
     }
 
-
-    private static class ManagerSaveException extends RuntimeException {
-        public ManagerSaveException(IOException message) {
-            super(message);
-        }
-    }
     public void save() {
 
         try (FileWriter csvOutputFile = new FileWriter("val.csv")) {
@@ -83,4 +79,66 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
 
+    @Override
+    public void addSubtaskId(Subtask subtask) {
+        super.addSubtaskId(subtask);
+        save();
+    }
+
+    @Override
+    public void addNewTask(Task task) {
+        super.addNewTask(task);
+        save();
+    }
+
+    @Override
+    public void addEpicId(Epic epic) {
+        super.addEpicId(epic);
+        save();
+    }
+
+    @Override
+    public void deleteEpicId(long key, Epic epic1) {
+        super.deleteEpicId(key, epic1);
+        save();
+    }
+
+    @Override
+    public void deleteAll() {
+        super.deleteAll();
+        save();
+    }
+
+    @Override
+    public void deleteEpics() {
+        super.deleteEpics();
+        save();
+    }
+
+    @Override
+    public void deleteSubtask(Subtask subtask) {
+        super.deleteSubtask(subtask);
+        save();
+    }
+
+    @Override
+    public void deleteSubtasks() {
+        super.deleteSubtasks();
+        save();
+    }
+
+    @Override
+    public void deleteTask(Task task) {
+        super.deleteTask(task);
+        save();
+    }
+
+    @Override
+    public void deleteTasks() {
+        super.deleteTasks();
+        save();
+    }
+
+
 }
+

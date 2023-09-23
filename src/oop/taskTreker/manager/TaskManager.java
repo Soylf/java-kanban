@@ -1,10 +1,8 @@
-package oop.taskTreker.manager.managersTask;
+package oop.taskTreker.manager;
 
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Subtask;
 import oop.taskTreker.task.Task;
-
-import java.util.List;
 
 public interface TaskManager {
     //Id

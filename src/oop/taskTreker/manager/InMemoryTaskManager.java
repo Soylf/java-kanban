@@ -1,19 +1,15 @@
-package oop.taskTreker.manager.managersTask;
+package oop.taskTreker.manager;
 
-import oop.taskTreker.manager.IdGenerator;
-import oop.taskTreker.manager.history.HistoryManager;
+import oop.taskTreker.manager.historyManager.HistoryManager;
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Status;
 import oop.taskTreker.task.Subtask;
 import oop.taskTreker.task.Task;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-import static oop.taskTreker.manager.managersTask.Managers.getDefaultHistory;
+import static oop.taskTreker.manager.Managers.getDefaultHistory;
 
 public class InMemoryTaskManager implements TaskManager {
 
@@ -21,7 +17,7 @@ public class InMemoryTaskManager implements TaskManager {
     private final HashMap<Long, Epic> epics = new HashMap<>();
     private final HashMap<Long, Subtask> subTasks = new HashMap<>();
     private final HashMap<Long, Task> tasks = new HashMap<>();
-    private final HistoryManager inMemoryHistoryManager = getDefaultHistory();
+    protected final HistoryManager inMemoryHistoryManager = getDefaultHistory();
 
     //Создание айдишника
 
@@ -228,4 +224,7 @@ public class InMemoryTaskManager implements TaskManager {
         return subtasks;
     }
 
+    public Map<Long,Task> addTask () {
+        return null;
+    }
 }

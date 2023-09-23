@@ -1,6 +1,6 @@
-package oop.taskTreker.manager.fileSaves;
+package oop.taskTreker.manager.fileManager;
 
-import oop.taskTreker.manager.history.HistoryManager;
+import oop.taskTreker.manager.historyManager.HistoryManager;
 import oop.taskTreker.task.*;
 
 import java.util.Arrays;

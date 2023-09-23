@@ -1,4 +1,4 @@
-package oop.taskTreker.manager.history;
+package oop.taskTreker.manager.historyManager;
 
 import oop.taskTreker.task.Task;
 
