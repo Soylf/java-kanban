@@ -1,5 +1,7 @@
 package oop.taskTreker.task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -8,6 +10,10 @@ public class Task {
     protected String name;
     protected String desc;
     protected Status status;
+
+    protected LocalDateTime startTime;
+
+    protected Duration duration;
 
     public Task(String name, String desc) {
 
@@ -26,12 +32,15 @@ public class Task {
 
     }
 
+    public Task(String task1, String descriptionTask1, Status aNew) {
+    }
+
     public TaskType getType (){
         return TaskType.TASK;
     }
 
 
-    public Long getId() {
+    public Subtask getId() {
         return id;
     }
 
@@ -62,6 +71,27 @@ public class Task {
     public void setStatus(String status) {
         this.status = Status.valueOf(status);
     }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
+    }
+
 
 
 

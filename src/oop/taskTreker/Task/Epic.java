@@ -1,10 +1,13 @@
 package oop.taskTreker.task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Epic extends Task {
     private  ArrayList<Long> subTaskIds;
+    private LocalDateTime endTime;
+
     public Epic(String name, String desc) {
         super(name, desc);
         subTaskIds = new ArrayList<>();
@@ -12,6 +15,9 @@ public class Epic extends Task {
 
     public Epic(long id, TaskType type, String name, String status, String desc, String val) {
         super();
+    }
+
+    public Epic(String epic1, String descriptionEpic1, Status aNew) {
     }
 
 
@@ -26,6 +32,17 @@ public class Epic extends Task {
     public void addSubTasks(Long subtasksId){
         subTaskIds.add(subtasksId);
     }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -52,5 +69,8 @@ public class Epic extends Task {
                 "', status=" + getStatus() +
                 " }";
     }
+
 }
+
+
 

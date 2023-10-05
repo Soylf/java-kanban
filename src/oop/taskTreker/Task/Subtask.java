@@ -14,12 +14,21 @@ public class Subtask extends Task {
         super();
     }
 
+    public Subtask(String subtask2, String descriptionSubtask2, Status aNew, Long id) {
+    }
+
+    public Subtask(String test2, String description, Status aNew) {
+    }
+
 
     public Long getEpicId() {
         return epicId;
     }
     public void setEpicId(Long id) {
         epicId = id;
+    }
+    public TaskType getType () {
+        return TaskType.SUBTASK;
     }
 
     @Override

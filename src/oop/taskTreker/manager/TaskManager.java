@@ -4,13 +4,27 @@ import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Subtask;
 import oop.taskTreker.task.Task;
 
+import java.util.List;
+
 public interface TaskManager {
     //Id
      void addEpicId(Epic epic);
 
-     void addSubtaskId(Subtask subtask);
+     int addSubtaskId(Subtask subtask);
 
-     void addNewTask(Task task);
+     int addNewTask(Task task);
+
+    void calculateDurationTimeForEpic(Integer epicId);
+
+    void calculateEndTimeForEpic(Integer epicId);
+
+    void calculateStartTimeForEpic(Integer epicId);
+
+    List<Subtask> getEpicSubtasksByEpicId(Integer uniqueId);
+
+    boolean isIntersection(Task task);
+
+    void calculateEndTimeForEpic(Long epicId);
 
     //Delete
      void deleteTask(Task task);
@@ -39,6 +53,10 @@ public interface TaskManager {
      Subtask updateSubtask(Subtask subtask);
 
      Epic updateEpic(Epic epic);
+
+    List<Task> getPrioritizedTasks();
+
+    void removeTaskById(Long uniqueId);
 
     //Новое
 

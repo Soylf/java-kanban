@@ -9,7 +9,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
     public FileBackedTasksManager(File file) {}
@@ -24,7 +23,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
      * @param file
      * Формат: id,type,name,status,description,epic
      */
-    public static FileBackedTasksManager loadFromFile(File file) { // немного переделал, наверное не правильно, но по идеи так и не вызовит колизии
+    public static FileBackedTasksManager loadFromFile(File file) { //сохранение файла
         final FileBackedTasksManager taskManager = new FileBackedTasksManager(file);
         try {
             final String csv = Files.readString(file.toPath());
@@ -38,15 +37,15 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     break;
                 }
                 final Task task = CSVFormatter.fromString(line);
-                final long id = task.getId();
+                final long id = task.getId().getEpicId();
                 if (id > generatorId) {
                     generatorId = (int) id;
                 }
                 taskManager.addNewTask(task);
             }
             for (Subtask subtask : taskManager.getSubTasks()) {
-                final Epic epic1 = taskManager.getEpicId(subtask.getEpicId());
-                epic1.addSubTasks(subtask.getId());
+                final Epic epic1 = taskManager.getEpicId(subtask.getId());
+                epic1.addSubTasks(subtask.getId().getEpicId());
             }
             for (Long taskId : history) {
                 taskManager.inMemoryHistoryManager.add(taskManager.getTaskId(taskId));
@@ -79,16 +78,19 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
 
+    //переопределение
     @Override
-    public void addSubtaskId(Subtask subtask) {
+    public int addSubtaskId(Subtask subtask) {
         super.addSubtaskId(subtask);
         save();
+        return 0;
     }
 
     @Override
-    public void addNewTask(Task task) {
+    public int addNewTask(Task task) {
         super.addNewTask(task);
         save();
+        return 0;
     }
 
     @Override

@@ -53,7 +53,7 @@ public class CSVFormatter {
         return null;
     }
 
-    //от
+
     public static String historyToString(HistoryManager manager) {
         StringBuilder viewedIds = new StringBuilder();
         if (!manager.getHistory().isEmpty()) {
@@ -80,11 +80,13 @@ public class CSVFormatter {
         return null;
     }
 
-    //к
+
     static List<Long> historyFromString(String historyStr) {
         if (historyStr.isEmpty()) {
             return Collections.emptyList();
         } else {
-            return Arrays.stream(historyStr.split(";")).map(Long::parseLong).collect(Collectors.toList());    }
+            return Arrays.stream(historyStr.split(";"))
+                    .map(Long::parseLong).collect(Collectors.toList());
+        }
     }
 }
