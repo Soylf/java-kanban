@@ -40,7 +40,7 @@ public class Task {
     }
 
 
-    public Subtask getId() {
+    public Long getId() {
         return id;
     }
 

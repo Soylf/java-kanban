@@ -37,7 +37,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     break;
                 }
                 final Task task = CSVFormatter.fromString(line);
-                final long id = task.getId().getEpicId();
+                final long id = task.getId();
                 if (id > generatorId) {
                     generatorId = (int) id;
                 }
@@ -45,7 +45,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             }
             for (Subtask subtask : taskManager.getSubTasks()) {
                 final Epic epic1 = taskManager.getEpicId(subtask.getId());
-                epic1.addSubTasks(subtask.getId().getEpicId());
+                epic1.addSubTasks(subtask.getId());
             }
             for (Long taskId : history) {
                 taskManager.inMemoryHistoryManager.add(taskManager.getTaskId(taskId));

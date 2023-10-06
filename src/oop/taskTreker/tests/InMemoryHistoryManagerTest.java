@@ -52,9 +52,9 @@ class InMemoryHistoryManagerTest {
         assertTrue(historyManager.getHistory().contains(task1));
         assertTrue(historyManager.getHistory().contains(task2));
         assertTrue(historyManager.getHistory().contains(task3));
-        historyManager.remove(task1.getId().getEpicId());
-        historyManager.remove(task2.getId().getEpicId());
-        historyManager.remove(task3.getId().getEpicId());
+        historyManager.remove(task1.getId());
+        historyManager.remove(task2.getId());
+        historyManager.remove(task3.getId());
         assertFalse(historyManager.getHistory().contains(task1));
         assertFalse(historyManager.getHistory().contains(task2));
         assertFalse(historyManager.getHistory().contains(task3));

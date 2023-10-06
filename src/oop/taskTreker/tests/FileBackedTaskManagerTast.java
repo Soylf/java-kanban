@@ -20,9 +20,9 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
         testManager.addSubtaskId(subtask1);
         testManager.addSubtaskId(subtask2);
 
-        testManager.getTaskId(task1.getId().getEpicId());
+        testManager.getTaskId(task1.getId());
         testManager.getEpicId(epic1.getId());
-        testManager.getSubtaskId(subtask1.getId().getEpicId());
+        testManager.getSubtaskId(subtask1.getId());
 
         FileBackedTasksManager restoredManager = loadFromFile(file);
         assertEquals(1, restoredManager.getTasks().size());

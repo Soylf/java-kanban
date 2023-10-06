@@ -26,7 +26,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     public long addEpicId(Epic epic) {
         epic.setId(generateId.generateId());
-        epics.put(epic.getId().getEpicId(),epic);
+        epics.put(epic.getId(),epic);
         inMemoryHistoryManager.add(epic);
         return 0;
     }
@@ -34,9 +34,9 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public int addSubtaskId(Subtask subtask) {
         subtask.setId(generateId.generateId());
-        subTasks.put(subtask.getId().getEpicId(), subtask);
+        subTasks.put(subtask.getId(), subtask);
         Epic epic = epics.get(subtask);
-        epic.addSubTasks(subtask.getId().getEpicId());
+        epic.addSubTasks(subtask.getId());
         updateEpicStat(subtask);
         inMemoryHistoryManager.add(epic);
         return 0;
@@ -45,7 +45,7 @@ public class InMemoryTaskManager implements TaskManager {
     public int addNewTask(Task task) {
 
         task.setId(generateId.generateId());
-        tasks.put(task.getId().getEpicId(),task);
+        tasks.put(task.getId(),task);
         inMemoryHistoryManager.add(task);
 
 
@@ -54,8 +54,8 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void calculateEndTimeForEpic(Integer epicId) {
         for (Epic epic : epics.values()) {
-            if (Objects.equals(epic.getId(), epicId)) {
-                calculateStartTimeForEpic(Math.toIntExact(epic.getId().getEpicId()));
+            if (epic.equals(epicId)) {
+                calculateStartTimeForEpic(Math.toIntExact(epic.getId()));
                 if (epic.getStartTime() == null || epic.getDuration() == null) {
                     return;
                 }
@@ -73,7 +73,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         for (Epic epic : epics.values()) {
             if (Objects.equals(epic.getId(), epicId)) {
-                List<Subtask> epicSubtasks = getEpicSubtasksByEpicId(Math.toIntExact(epic.getId().getEpicId()));
+                List<Subtask> epicSubtasks = getEpicSubtasksByEpicId(Math.toIntExact(epic.getId()));
                 if (epicSubtasks.isEmpty()) {
                     return;
                 }
@@ -84,7 +84,7 @@ public class InMemoryTaskManager implements TaskManager {
                     test.add(subtask.getStartTime());
                     LocalDateTime min = Collections.min(test);
                     epic.setStartTime(min);
-                    calculateDurationTimeForEpic(Math.toIntExact(epic.getId().getEpicId()));
+                    calculateDurationTimeForEpic(Math.toIntExact(epic.getId()));
                 }
             }
         }
@@ -97,7 +97,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         for (Epic epic : epics.values()) {
             if (Objects.equals(epic.getId(), epicId)) {
-                List<Subtask> epicSubtasks = getEpicSubtasksByEpicId(Math.toIntExact(epic.getId().getEpicId()));
+                List<Subtask> epicSubtasks = getEpicSubtasksByEpicId(Math.toIntExact(epic.getId()));
                 if (epicSubtasks.isEmpty()) {
                     return;
                 }
@@ -134,7 +134,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (prioritizedTasks.isEmpty()) {
             return true;
         }
-        for (Task prioritized : getPrioritizedTasks()) {
+        for (Task prioritized : prioritizedTasks) {
             if (prioritized.getStartTime() == null) {
                 return true;
             }
@@ -151,7 +151,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void calculateEndTimeForEpic(Long epicId) {
         for (Epic epic : epics.values()) {
             if (Objects.equals(epic.getId(), epicId)) {
-                calculateStartTimeForEpic(Math.toIntExact(epic.getId().getEpicId()));
+                calculateStartTimeForEpic(Math.toIntExact(epic.getId()));
                 if (epic.getStartTime() == null || epic.getDuration() == null) {
                     return;
                 }
@@ -168,10 +168,10 @@ public class InMemoryTaskManager implements TaskManager {
         updateEpicStat(subtask);
     }
 
-    public void updateSubtaskDONE(Subtask subtask){
-        Subtask subtask1 = subTasks.get(subtask.getId());
+    public void updateSubtaskDONE(Long subtask){
+        Subtask subtask1 = subTasks.get(subtask);
         subtask1.setStatus(String.valueOf(Status.DONE));
-        updateEpicStat(subtask);
+        updateEpicStat(subtask1);
     }
 
     private void updateEpicStat(Subtask epicId){ //апдейт подзадач
@@ -215,7 +215,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
     @Override
     public void deleteSubtask(Subtask subtask) {
-        Epic epic = getEpicId(subtask);
+        Epic epic = getEpicId(subtask.getId());
         if (epic != null) {
             ArrayList<Long> subTaskIds = epic.getSubTaskIds();
             subTaskIds.remove(subtask.getId());
@@ -263,7 +263,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
     @Override
     public void  removeSybTaskEpicId(Epic epic,Subtask subtask){
-        subtask.setEpicId(epic.getId().getEpicId());
+        subtask.setEpicId(epic.getId());
     }
     @Override
     public Task updateTask(Task task) {
@@ -271,7 +271,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (currentTask == null) {
             return null;
         }
-        return tasks.put(task.getId().getEpicId(), task);
+        return tasks.put(task.getId(), task);
     }
     @Override
     public Subtask updateSubtask(Subtask subtask) {
@@ -280,7 +280,7 @@ public class InMemoryTaskManager implements TaskManager {
             return null;
         }
         updateEpicStat(subtask);
-        return subTasks.put(subtask.getId().getEpicId(), subtask);
+        return subTasks.put(subtask.getId(), subtask);
     }
     @Override
     public Epic updateEpic(Epic epic) {
@@ -289,7 +289,7 @@ public class InMemoryTaskManager implements TaskManager {
             return null;
         }
         updateEpicStat(subTasks.get(epic.getSubTaskIds()));
-        return epics.put(epic.getId().getEpicId(), epic);
+        return epics.put(epic.getId(), epic);
     }
 
     @Override
@@ -307,7 +307,7 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList<>(epics.values());
     }
 
-    public Epic getEpicId(Subtask id) {
+    public Epic getEpicId(Long id) {
         return epics.get(id);
     }
 
