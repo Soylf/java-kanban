@@ -24,10 +24,11 @@ public class InMemoryTaskManager implements TaskManager {
 
     //Создание айдишника
 
-    public void addEpicId(Epic epic) {
+    public long addEpicId(Epic epic) {
         epic.setId(generateId.generateId());
         epics.put(epic.getId().getEpicId(),epic);
         inMemoryHistoryManager.add(epic);
+        return 0;
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TaskManager {
     //Id
-     void addEpicId(Epic epic);
+     long addEpicId(Epic epic);
 
      int addSubtaskId(Subtask subtask);
 
