@@ -4,12 +4,14 @@ import oop.taskTreker.manager.InMemoryTaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.sun.org.apache.xml.internal.security.Init.init;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
 
     @BeforeEach
     public void setUp() {
+        manager = new InMemoryTaskManager();
         init();
     }
 

@@ -1,7 +1,6 @@
-package oop.taskTreker.tests;
+package tests;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 
 import oop.taskTreker.manager.InMemoryTaskManager;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.Month;
 
 import static java.util.Collections.emptyList;

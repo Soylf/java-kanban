@@ -1,22 +1,30 @@
 package oop.taskTreker.tests;
 
 import oop.taskTreker.manager.fileManager.FileBackedTasksManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
+import static com.sun.org.apache.xml.internal.security.Init.init;
 import static oop.taskTreker.manager.fileManager.FileBackedTasksManager.loadFromFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
+class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTasksManager> {
 
-    File file = new File("COMMA-COMMA.csv");
+    File file = new File("val.csv");
+
+    @BeforeEach
+    public void setUp() {
+        manager = new FileBackedTasksManager();
+        init();
+    }
 
     @Test
     public void giveAllTypeOfTasks_whenCreateAndSaveNewCSVFile_thenRestoreFromFile() {
-        FileBackedTasksManager testManager = new FileBackedTasksManager(new File("val.csv"));
+        FileBackedTasksManager testManager = new FileBackedTasksManager();
         testManager.addNewTask(task1);
-        testManager.addNewTask(epic1);
+        testManager.addEpicId(epic1);
         testManager.addSubtaskId(subtask1);
         testManager.addSubtaskId(subtask2);
 

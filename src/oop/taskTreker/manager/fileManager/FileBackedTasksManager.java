@@ -13,6 +13,10 @@ import java.util.List;
 public class FileBackedTasksManager extends InMemoryTaskManager {
     public FileBackedTasksManager(File file) {}
 
+    public FileBackedTasksManager() {
+
+    }
+
     public static class ManagerSaveException extends RuntimeException {
         public ManagerSaveException(IOException message) {
             super(message);
