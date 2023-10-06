@@ -17,7 +17,7 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
 
     @Test
     public void whenCallGenerateId_thenReturnIntegerPlusOne() {
-        int id1 = manager.addNewTask(task1);
+        long id1 = manager.addNewTask(task1);
         assertEquals(0, id1);
         long id2 = manager.addEpicId(epic1);
         assertEquals(1, id2);

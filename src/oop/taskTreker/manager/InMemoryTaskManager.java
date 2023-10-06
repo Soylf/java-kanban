@@ -51,7 +51,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
     @Override
     public int addNewTask(Task task) {
-
         task.setId(generateId.generateId());
         tasks.put(task.getId(),task);
         inMemoryHistoryManager.add(task);
@@ -61,13 +60,23 @@ public class InMemoryTaskManager implements TaskManager {
     }
     @Override
     public void calculateEndTimeForEpic(Integer epicId) {
+        List<LocalDateTime> test = new ArrayList<>();
+        if (epics.isEmpty()) {
+            return;
+        }
         for (Epic epic : epics.values()) {
-            if (epic.equals(epicId)) {
-                calculateStartTimeForEpic(Math.toIntExact(epic.getId()));
-                if (epic.getStartTime() == null || epic.getDuration() == null) {
+            if (Objects.equals(epic.getId(), epicId)) {
+                List<Subtask> epicSubtasks = getEpicSubtasksByEpicId(Math.toIntExact(epic.getId()));
+                if (epicSubtasks.isEmpty()) {
                     return;
                 }
-                epic.setEndTime(epic.getStartTime().plus(epic.getDuration()));
+                for (Subtask subtask : epicSubtasks) {
+                    if (subtask.getEndTime() != null) {
+                        test.add(subtask.getEndTime());
+                        LocalDateTime max = Collections.max(test);
+                        epic.setEndTime(max);
+                    }
+                }
             }
         }
     }
