@@ -20,7 +20,15 @@ public class InMemoryTaskManager implements TaskManager {
     private final HashMap<Long, Subtask> subTasks = new HashMap<>();
     private final HashMap<Long, Task> tasks = new HashMap<>();
     protected final HistoryManager inMemoryHistoryManager = getDefaultHistory();
-    protected final TreeSet<Task> prioritizedTasks = new TreeSet<>(new TaskLocalDateTimeSorter());
+    protected final TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.nullsLast((o1, o2) -> {
+        if (o1.getStartTime() != null && o2.getStartTime() != null) {
+            return o1.getStartTime().compareTo(o2.getStartTime());
+        } else if (o1 == o2) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }));
 
     //Создание айдишника
 
@@ -134,9 +142,9 @@ public class InMemoryTaskManager implements TaskManager {
         if (prioritizedTasks.isEmpty()) {
             return true;
         }
-        for (Task prioritized : prioritizedTasks) {
+        for (Task prioritized : getPrioritizedTasks()) {
             if (prioritized.getStartTime() == null) {
-                return true;
+                continue;
             }
             if (task.getStartTime().isAfter(prioritized.getStartTime())
                     || task.getEndTime().isBefore(prioritized.getEndTime())) {
