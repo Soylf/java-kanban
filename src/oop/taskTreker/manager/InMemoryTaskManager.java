@@ -1,10 +1,10 @@
 package oop.taskTreker.manager;
 
 import oop.taskTreker.manager.historyManager.HistoryManager;
-import oop.taskTreker.task.Epic;
-import oop.taskTreker.task.Status;
-import oop.taskTreker.task.Subtask;
-import oop.taskTreker.task.Task;
+import oop.taskTreker.Task.Epic;
+import oop.taskTreker.Task.Status;
+import oop.taskTreker.Task.Subtask;
+import oop.taskTreker.Task.Task;
 
 
 import java.time.Duration;
@@ -43,19 +43,19 @@ public class InMemoryTaskManager implements TaskManager {
     public int addSubtaskId(Subtask subtask) {
         subtask.setId(generateId.generateId());
         subTasks.put(subtask.getId(), subtask);
-        Epic epic = epics.get(subtask);
+        Epic epic = epics.get(subtask.getId());
         epic.addSubTasks(subtask.getId());
         updateEpicStat(subtask);
         inMemoryHistoryManager.add(epic);
-        return 0;
+        return 1;
     }
     @Override
     public int addNewTask(Task task) {
-        task.setId(generateId.generateId());
-        tasks.put(task.getId(),task);
-        inMemoryHistoryManager.add(task);
-
-
+        if(task != null) {
+            task.setId(generateId.generateId());
+            tasks.put(task.getId(),task);
+            inMemoryHistoryManager.add(task);
+        }
         return 0;
     }
     @Override

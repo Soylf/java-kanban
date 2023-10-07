@@ -1,12 +1,15 @@
 package oop.taskTreker.tests;
 
+import oop.taskTreker.Task.Task;
 import oop.taskTreker.manager.Managers;
 import oop.taskTreker.manager.historyManager.HistoryManager;
-import oop.taskTreker.task.Task;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static oop.taskTreker.task.Status.NEW;
+
+import static oop.taskTreker.Task.Status.NEW;
+import static oop.taskTreker.Task.TaskType.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
@@ -20,9 +23,9 @@ class InMemoryHistoryManagerTest {
     @BeforeEach
     public void setUp() {
         historyManager = Managers.getDefaultHistory();
-        task1 = new Task("T1", "D1", NEW);
-        task2 = new Task("T2", "D2", NEW);
-        task3 = new Task("T3", "D3", NEW);
+        task1 = new Task("T1",TASK, "D1", NEW);
+        task2 = new Task("T2",TASK, "D2", NEW);
+        task3 = new Task("T3",TASK, "D3", NEW);
         task1.setId(1L);
         task2.setId(2L);
         task3.setId(3L);

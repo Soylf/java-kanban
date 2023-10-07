@@ -2,13 +2,14 @@ package oop.taskTreker.manager.fileManager;
 
 import oop.taskTreker.manager.historyManager.InMemoryHistoryManager;
 import oop.taskTreker.manager.InMemoryTaskManager;
-import oop.taskTreker.task.Epic;
-import oop.taskTreker.task.Subtask;
-import oop.taskTreker.task.Task;
+import oop.taskTreker.Task.Epic;
+import oop.taskTreker.Task.Subtask;
+import oop.taskTreker.Task.Task;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
     public FileBackedTasksManager(File file) {}
@@ -40,7 +41,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     history = CSVFormatter.historyFromString(lines[i + 1]);
                     break;
                 }
-                final Task task = CSVFormatter.fromString(line);
+                Task task = CSVFormatter.fromString(line);
                 final long id = task.getId();
                 if (id > generatorId) {
                     generatorId = (int) id;

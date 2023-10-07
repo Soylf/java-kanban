@@ -1,4 +1,4 @@
-package oop.taskTreker.task;
+package oop.taskTreker.Task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,16 +8,14 @@ public class Epic extends Task {
     private  ArrayList<Long> subTaskIds;
     private LocalDateTime endTime;
 
-    public Epic(String name, String desc) {
-        super(name, desc);
+    public Epic(String name, TaskType type, String desc, Status status) {
+        type = TaskType.EPIC;
         subTaskIds = new ArrayList<>();
+        this.status = Status.NEW;
     }
 
-    public Epic(long id, TaskType type, String name, String status, String desc, String val) {
-        super();
-    }
+    public Epic() {
 
-    public Epic(String epic1, String descriptionEpic1, Status aNew) {
     }
 
 

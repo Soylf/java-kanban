@@ -1,4 +1,4 @@
-package oop.taskTreker.task;
+package oop.taskTreker.Task;
 
 public enum Status {
     NEW,

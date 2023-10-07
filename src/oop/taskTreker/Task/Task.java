@@ -1,4 +1,4 @@
-package oop.taskTreker.task;
+package oop.taskTreker.Task;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -15,24 +15,16 @@ public class Task {
 
     protected Duration duration;
 
-    public Task(String name, String desc) {
-
+    public Task(String name,TaskType type ,String desc, Status status) {
+        type = TaskType.TASK;
         this.name = name;
         this.desc = desc;
-        status = Status.NEW;
+        this.status = Status.NEW;
 
-    }
-
-
-    public Task(long id, TaskType type, String name, String status, String desc, String val) {
-        super();
     }
 
     public Task() {
 
-    }
-
-    public Task(String task1, String descriptionTask1, Status aNew) {
     }
 
     public TaskType getType (){
