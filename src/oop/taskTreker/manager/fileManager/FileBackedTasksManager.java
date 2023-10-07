@@ -9,7 +9,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
     public FileBackedTasksManager(File file) {}
@@ -41,7 +40,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     history = CSVFormatter.historyFromString(lines[i + 1]);
                     break;
                 }
-                Task task = CSVFormatter.fromString(line);
+                Task task = CSVFormatter.stringToTask(line);
+                assert task != null;
                 final long id = task.getId();
                 if (id > generatorId) {
                     generatorId = (int) id;
@@ -85,24 +85,22 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     //переопределение
     @Override
-    public int addSubtaskId(Subtask subtask) {
+    public void addSubtaskId(Subtask subtask) {
         super.addSubtaskId(subtask);
         save();
-        return 0;
+
     }
 
     @Override
-    public int addNewTask(Task task) {
+    public void addNewTask(Task task) {
         super.addNewTask(task);
         save();
-        return 0;
     }
 
     @Override
-    public long addEpicId(Epic epic) {
+    public void addEpicId(Epic epic) {
         super.addEpicId(epic);
         save();
-        return 0;
     }
 
     @Override

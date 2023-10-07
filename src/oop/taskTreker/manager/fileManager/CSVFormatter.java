@@ -1,5 +1,7 @@
 package oop.taskTreker.manager.fileManager;
 
+import oop.taskTreker.Task.TypeAndStatus.Status;
+import oop.taskTreker.Task.TypeAndStatus.TaskType;
 import oop.taskTreker.manager.historyManager.HistoryManager;
 import oop.taskTreker.Task.*;
 
@@ -17,15 +19,22 @@ public class CSVFormatter {
 
 
     public static String toString(Task task) {
-        if (task != null) {
-            return String.format("%d,%s,%s,%s,%s,", task.getId(),
-                    typeOfTaskToString(task.getType()), task.getName(),
-                    typeOfStatusToString(task.getStatus()), task.getDesc());
+        try {
+            return String.format("%d,%s,%s,%s,%s,%s,%s,",
+                    task.getId(),
+                    task.getType(),
+                    task.getName(),
+                    task.getStatus(),
+                    task.getDesc(),
+                    task.getStartTime(),
+                    task.getDuration());
         }
-        return null;
+        catch (NullPointerException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static Task fromString (String line) {
+    public static Task stringToTask (String line) {
         try {
             if (!line.isBlank() && !line.isEmpty()) {
                 String[] tokens = line.split(",");
@@ -41,7 +50,6 @@ public class CSVFormatter {
                             if (!tokens[5].equals("null") && !tokens[6].equals("null")) {
                                 task.setStartTime(LocalDateTime.parse(tokens[5]));
                                 task.setDuration(Duration.parse(tokens[6]));
-
                             return task;
                         }
                         case EPIC:

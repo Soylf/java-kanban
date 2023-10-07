@@ -9,8 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-import static oop.taskTreker.Task.Status.NEW;
-import static oop.taskTreker.Task.TaskType.*;
+import static oop.taskTreker.Task.TypeAndStatus.Status.NEW;
+import static oop.taskTreker.Task.TypeAndStatus.TaskType.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {

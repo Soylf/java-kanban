@@ -1,5 +1,8 @@
 package oop.taskTreker.Task;
 
+import oop.taskTreker.Task.TypeAndStatus.Status;
+import oop.taskTreker.Task.TypeAndStatus.TaskType;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;

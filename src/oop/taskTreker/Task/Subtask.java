@@ -1,11 +1,14 @@
 package oop.taskTreker.Task;
 
+import oop.taskTreker.Task.TypeAndStatus.Status;
+import oop.taskTreker.Task.TypeAndStatus.TaskType;
+
 import java.util.Objects;
 
 public class Subtask extends Task {
     private Long epicId;
 
-    public Subtask( String name, TaskType type,String desc,Status status,Long epicId) {
+    public Subtask(String name, TaskType type, String desc, Status status, Long epicId) {
         type = TaskType.SUBTASK;
         this.epicId = epicId;
         this.status = Status.NEW;

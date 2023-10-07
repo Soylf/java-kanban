@@ -10,19 +10,18 @@ import java.util.List;
 
 public interface TaskManager {
     //Id
-     long addEpicId(Epic epic);
+     void addEpicId(Epic epic);
 
-     int addSubtaskId(Subtask subtask);
+     void addSubtaskId(Subtask subtask);
 
-     int addNewTask(Task task);
+     void addNewTask(Task task);
 
-    void calculateDurationTimeForEpic(Integer epicId);
+    void calculateDurationTimeForEpic(Long epicId);
 
-    void calculateEndTimeForEpic(Integer epicId);
 
-    void calculateStartTimeForEpic(Integer epicId);
+    void calculateStartTimeForEpic(Long epicId);
 
-    List<Subtask> getEpicSubtasksByEpicId(Integer uniqueId);
+    List<Subtask> getEpicSubtasksByEpicId(Long uniqueId);
 
     boolean isIntersection(Task task);
 
