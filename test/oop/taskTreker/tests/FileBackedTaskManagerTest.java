@@ -1,5 +1,6 @@
 package oop.taskTreker.tests;
 
+import oop.taskTreker.manager.InMemoryTaskManager;
 import oop.taskTreker.manager.fileManager.FileBackedTasksManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,11 +22,16 @@ class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTasksManager> 
 
     @Test
     public void giveAllTypeOfTasks_whenCreateAndSaveNewCSVFile_thenRestoreFromFile() {
+        InMemoryTaskManager manager = new InMemoryTaskManager();
         FileBackedTasksManager testManager = new FileBackedTasksManager();
         testManager.addNewTask(task1);
         testManager.addEpicId(epic1);
         testManager.addSubtaskId(subtask1);
         testManager.addSubtaskId(subtask2);
+
+        manager.addNewTask(task1);
+        manager.addEpicId(epic1);
+        manager.addSubtaskId(subtask1);
 
         testManager.getTaskId(task1.getId());
         testManager.getEpicId(epic1.getId());

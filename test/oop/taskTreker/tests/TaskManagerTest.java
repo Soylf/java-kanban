@@ -37,12 +37,6 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         epic2 = new Epic("Epic2",TASK, "DescriptionEpic2", NEW);
         subtask1 = new Subtask("Subtask1",SUBTASK, "DescriptionSubtask1", NEW,epic1.getId());
         subtask2 = new Subtask("Subtask2",SUBTASK, "DescriptionSubtask2", NEW,epic2.getId());
-        task1.setId(0L);
-        task2.setId(1L);
-        epic1.setId(2L);
-        epic2.setId(3L);
-        subtask1.setId(4L);
-        subtask2.setId(5L);
     }
 
     @BeforeEach
@@ -152,6 +146,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void whenCallMethodaddEpicId_thenReturnIdAndAddEpic() {
         InMemoryTaskManager manager = new InMemoryTaskManager();
+        manager.addEpicId(epic1);
         assertEquals(1, manager.getEpics().size());
     }
 
