@@ -36,13 +36,13 @@ public class DataManager {
     private void load() {
         String mainDataStr = kvClient.load(MAIN);
         if (mainDataStr != null) {
-            List<Data> mainData = gson.fromJson(mainDataStr, new TypeToken<ArrayList<Data>>() {});//десереализация
+            List<Data> mainData = gson.fromJson(mainDataStr, new TypeToken<ArrayList<Data>>() {}.getType());//десереализация
             mainData.forEach(d -> mainDataKey.put(d.getKey(),d));
         }
 
         String sideDataStr = kvClient.load(SIDE);
         if (mainDataStr != null) {
-            List<Data> sideData = gson.fromJson(sideDataStr, new TypeToken<ArrayList<Data>>() {});
+            List<Data> sideData = gson.fromJson(sideDataStr, new TypeToken<ArrayList<Data>>() {}.getType());
             sideData.forEach(d -> mainDataKey.put(d.getKey(),d));
         }
     }
@@ -66,7 +66,5 @@ public class DataManager {
         kvClient.put(SIDE,json);
     }
 
-    private void backup() {
-
-    }
+   // private void backup() {}
 }
