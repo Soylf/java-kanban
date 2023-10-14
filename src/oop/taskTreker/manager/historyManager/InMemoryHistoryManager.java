@@ -1,6 +1,6 @@
 package oop.taskTreker.manager.historyManager;
 
-import oop.taskTreker.Task.Task;
+import oop.taskTreker.task.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

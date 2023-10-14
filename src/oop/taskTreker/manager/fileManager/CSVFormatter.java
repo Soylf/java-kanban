@@ -1,9 +1,9 @@
 package oop.taskTreker.manager.fileManager;
 
-import oop.taskTreker.Task.TypeAndStatus.Status;
-import oop.taskTreker.Task.TypeAndStatus.TaskType;
+import oop.taskTreker.task.typeAndStatus.Status;
+import oop.taskTreker.task.typeAndStatus.TaskType;
 import oop.taskTreker.manager.historyManager.HistoryManager;
-import oop.taskTreker.Task.*;
+import oop.taskTreker.task.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

@@ -1,7 +1,7 @@
-package oop.taskTreker.Task;
+package oop.taskTreker.task;
 
-import oop.taskTreker.Task.TypeAndStatus.Status;
-import oop.taskTreker.Task.TypeAndStatus.TaskType;
+import oop.taskTreker.task.typeAndStatus.Status;
+import oop.taskTreker.task.typeAndStatus.TaskType;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

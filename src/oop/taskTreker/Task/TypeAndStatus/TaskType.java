@@ -1,4 +1,4 @@
-package oop.taskTreker.Task.TypeAndStatus;
+package oop.taskTreker.task.typeAndStatus;
 
 public enum TaskType {
     TASK, SUBTASK, EPIC

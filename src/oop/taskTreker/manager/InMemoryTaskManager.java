@@ -1,10 +1,10 @@
 package oop.taskTreker.manager;
 
 import oop.taskTreker.manager.historyManager.HistoryManager;
-import oop.taskTreker.Task.Epic;
-import oop.taskTreker.Task.TypeAndStatus.Status;
-import oop.taskTreker.Task.Subtask;
-import oop.taskTreker.Task.Task;
+import oop.taskTreker.task.Epic;
+import oop.taskTreker.task.typeAndStatus.Status;
+import oop.taskTreker.task.Subtask;
+import oop.taskTreker.task.Task;
 
 
 import java.time.Duration;

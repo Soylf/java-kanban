@@ -1,6 +1,6 @@
 package oop.taskTreker.tests;
 
-import oop.taskTreker.Task.Task;
+import oop.taskTreker.task.Task;
 import oop.taskTreker.manager.InMemoryTaskManager;
 import oop.taskTreker.manager.Managers;
 import oop.taskTreker.manager.historyManager.HistoryManager;
@@ -9,8 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-import static oop.taskTreker.Task.TypeAndStatus.Status.NEW;
-import static oop.taskTreker.Task.TypeAndStatus.TaskType.*;
+import static oop.taskTreker.task.typeAndStatus.Status.NEW;
+import static oop.taskTreker.task.typeAndStatus.TaskType.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {

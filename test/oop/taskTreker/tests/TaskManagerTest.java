@@ -1,15 +1,15 @@
 package oop.taskTreker.tests;
 
-import oop.taskTreker.Task.Epic;
-import oop.taskTreker.Task.Subtask;
-import oop.taskTreker.Task.Task;
+import oop.taskTreker.task.Epic;
+import oop.taskTreker.task.Subtask;
+import oop.taskTreker.task.Task;
 import oop.taskTreker.manager.TaskManager;
 
 import org.junit.jupiter.api.BeforeEach;
 
 
-import static oop.taskTreker.Task.TypeAndStatus.Status.*;
-import static oop.taskTreker.Task.TypeAndStatus.TaskType.*;
+import static oop.taskTreker.task.typeAndStatus.Status.*;
+import static oop.taskTreker.task.typeAndStatus.TaskType.*;
 
 public abstract class TaskManagerTest<T extends TaskManager> {
 
