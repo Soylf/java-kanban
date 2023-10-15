@@ -11,11 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
-    public FileBackedTasksManager(File file) {}
+    public FileBackedTasksManager() {}
 
-    public FileBackedTasksManager() {
-
-    }
 
     public static class ManagerSaveException extends RuntimeException {
         public ManagerSaveException(IOException message) {
@@ -28,7 +25,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
      * Формат: id,type,name,status,description,epic
      */
     public static FileBackedTasksManager loadFromFile(File file) { //сохранение файла
-        final FileBackedTasksManager taskManager = new FileBackedTasksManager(file);
+        final FileBackedTasksManager taskManager = new FileBackedTasksManager();
         try {
             final String csv = Files.readString(file.toPath());
             final String[] lines = csv.split("\n");

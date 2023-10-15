@@ -20,7 +20,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -47,7 +46,6 @@ public class HttpTaskServer {
     //public void stopServer() {}
 
     static class TaskHandler implements HttpHandler {
-        private final TaskManager manager = getDefault();
 
         @Override
         public void handle(HttpExchange exchange) throws IOException {
@@ -298,7 +296,7 @@ public class HttpTaskServer {
 
         private void handleGetPrioritized(HttpExchange exchange) throws IOException {
             try {
-                writeResponse(exchange, gson.toJson(manager.getPrioritizedTasks()), 200);
+                writeResponse(exchange, gson.toJson(managerTask.getPrioritizedTasks()), 200);
             } catch (JsonSyntaxException e) {
                 writeResponse(exchange, "something going wrong" + e.getMessage(), 404);
             }
