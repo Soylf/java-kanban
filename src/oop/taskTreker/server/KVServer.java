@@ -10,7 +10,7 @@ import java.util.Map;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 
-/**
+/**лень было
  * Постман: https://www.getpostman.com/collections/a83b61d9e1c81c10575c
  */
 public class KVServer {
@@ -31,19 +31,19 @@ public class KVServer {
 		try {
 			System.out.println("\n/load");
 			if (!hasAuth(h)) {
-				System.out.println("Запрос неавторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
+				System.out.println("Хой, запрос неавторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
 				h.sendResponseHeaders(403, 0);
 				return;
 			}
 			if ("GET".equals(h.getRequestMethod())) {
 				String key = h.getRequestURI().getPath().substring("/load/".length());
 				if (key.isEmpty()) {
-					System.out.println("Key для сохранения получение пустой. key указывается в пути: /load/{key}");
+					System.out.println("Хой,key для сохранения получение пустой. key указывается в пути: /load/{key}");
 					h.sendResponseHeaders(400, 0);
 					return;
 				}
 				if(!data.containsKey(key)) {
-					System.out.println("Хой, а тутя не вижу данных по ключу, няфк.");
+					System.out.println("Хой, а ту тя не вижу данных по ключу, няфк.");
 					h.sendResponseHeaders(404, 0);
 					return;
 				}
@@ -62,28 +62,28 @@ public class KVServer {
 		try {
 			System.out.println("\n/save");
 			if (!hasAuth(h)) {
-				System.out.println("Запрос неавторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
+				System.out.println("Хой,запрос не авторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
 				h.sendResponseHeaders(403, 0);
 				return;
 			}
 			if ("POST".equals(h.getRequestMethod())) {
 				String key = h.getRequestURI().getPath().substring("/save/".length());
 				if (key.isEmpty()) {
-					System.out.println("Key для сохранения пустой. key указывается в пути: /save/{key}");
+					System.out.println("Хой, key для сохранения пустой. key указывается в пути: /save/{key}");
 					h.sendResponseHeaders(400, 0);
 					return;
 				}
 				String value = readText(h);
 				if (value.isEmpty()) {
-					System.out.println("Value для сохранения пустой. value указывается в теле запроса");
+					System.out.println("Хой, value для сохранения пустой. value указывается в теле запроса");
 					h.sendResponseHeaders(400, 0);
 					return;
 				}
 				data.put(key, value);
-				System.out.println("Значение для ключа " + key + " успешно обновлено!");
+				System.out.println("Хой,значение для ключа " + key + " успешно обновлено!");
 				h.sendResponseHeaders(200, 0);
 			} else {
-				System.out.println("/save ждёт POST-запрос, а получил: " + h.getRequestMethod());
+				System.out.println("/save ждёт POST-запрос,ёмае няфк... а получил: " + h.getRequestMethod());
 				h.sendResponseHeaders(405, 0);
 			}
 		} finally {

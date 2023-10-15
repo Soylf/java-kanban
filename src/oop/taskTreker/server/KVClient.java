@@ -49,11 +49,11 @@ public class KVClient {
                 return null;
             }
             if(response.statusCode() != 200) {
-                throw new RuntimeException("");
+                throw new RuntimeException("Хой, нус... Агахь, зырьк" +  response.statusCode());
             }
             return response.body();
         }catch (IOException | InterruptedException e) {
-            throw new RuntimeException("1");
+            throw new RuntimeException("Ну...че-то не так, а чет с запросом братишь ^_^");
         }
     }
 
@@ -66,10 +66,10 @@ public class KVClient {
 
             HttpResponse<Void> response =  httpClient.send(request, HttpResponse.BodyHandlers.discarding());
             if(response.statusCode() != 200) {
-                throw new RuntimeException("");
+                throw new RuntimeException("Хой, нус... Агахь, зырьк" +  response.statusCode());
             }
         }catch (IOException | InterruptedException e) {
-            throw new RuntimeException("1");
+            throw new RuntimeException("Ну...че-то не так, а чет с запросом братишь ^_^");
         }
     }
 }

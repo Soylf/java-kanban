@@ -4,7 +4,6 @@ import com.google.common.reflect.TypeToken;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import oop.taskTreker.task.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +35,7 @@ public class DataManager {
     private void load() {
         String mainDataStr = kvClient.load(MAIN);
         if (mainDataStr != null) {
-            List<Data> mainData = gson.fromJson(mainDataStr, new TypeToken<ArrayList<Data>>() {}.getType());//десереализация
+            List<Data> mainData = gson.fromJson(mainDataStr, new TypeToken<ArrayList<Data>>() {}.getType());
             mainData.forEach(d -> mainDataKey.put(d.getKey(),d));
         }
 

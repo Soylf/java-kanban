@@ -48,6 +48,8 @@ public interface TaskManager {
 
      void removeSybTaskEpicId(Epic epic, Subtask subtask);
 
+    void removeSubtaskById(Subtask subtask);
+
     //Update
      Task updateTask(Task task);
 

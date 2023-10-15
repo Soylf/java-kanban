@@ -258,6 +258,10 @@ public class InMemoryTaskManager implements TaskManager {
         subtask.setEpicId(epic.getId());
     }
     @Override
+    public void removeSubtaskById(Subtask subtask) {
+
+    }
+    @Override
     public Task updateTask(Task task) {
         Task currentTask = tasks.get(task.getId());
         if (currentTask == null) {
