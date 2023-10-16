@@ -10,7 +10,7 @@ import java.util.Map;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 
-/**лень было
+/**лень было,
  * Постман: https://www.getpostman.com/collections/a83b61d9e1c81c10575c
  */
 public class KVServer {
