@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 
 import static oop.taskTreker.task.typeAndStatus.Status.*;
-import static oop.taskTreker.task.typeAndStatus.TaskType.*;
+import static oop.taskTreker.task.typeAndStatus.Type.*;
 
 public abstract class TaskManagerTest<T extends TaskManager> {
 

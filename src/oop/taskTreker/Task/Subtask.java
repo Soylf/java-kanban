@@ -1,15 +1,15 @@
 package oop.taskTreker.task;
 
 import oop.taskTreker.task.typeAndStatus.Status;
-import oop.taskTreker.task.typeAndStatus.TaskType;
+import oop.taskTreker.task.typeAndStatus.Type;
 
 import java.util.Objects;
 
 public class Subtask extends Task {
     private Long epicId;
 
-    public Subtask(String name, TaskType type, String desc, Status status, Long epicId) {
-        type = TaskType.SUBTASK;
+    public Subtask(String name, Type type, String desc, Status status, Long epicId) {
+        type = Type.SUBTASK;
         this.epicId = epicId;
         this.status = Status.NEW;
     }
@@ -26,8 +26,8 @@ public class Subtask extends Task {
     public void setEpicId(Long id) {
         epicId = id;
     }
-    public TaskType getType () {
-        return TaskType.SUBTASK;
+    public Type getType () {
+        return Type.SUBTASK;
     }
 
     @Override

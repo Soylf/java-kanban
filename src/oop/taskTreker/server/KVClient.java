@@ -1,14 +1,12 @@
 package oop.taskTreker.server;
 
-import oop.taskTreker.manager.InMemoryTaskManager;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class KVClient extends InMemoryTaskManager {
+public class KVClient {
     private static final String URL = "http://localhost:8055/";
 
     private final String apiToken;

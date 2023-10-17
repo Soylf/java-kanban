@@ -1,5 +1,5 @@
 package oop.taskTreker.task.typeAndStatus;
 
-public enum TaskType {
+public enum Type {
     TASK, SUBTASK, EPIC
 }

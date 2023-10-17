@@ -7,12 +7,11 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import oop.taskTreker.manager.InMemoryTaskManager;
-import oop.taskTreker.manager.TaskManager;
 import oop.taskTreker.manager.historyManager.InMemoryHistoryManager;
 import oop.taskTreker.task.Epic;
 import oop.taskTreker.task.Subtask;
 import oop.taskTreker.task.Task;
-import oop.taskTreker.task.typeAndStatus.TaskType;
+import oop.taskTreker.task.typeAndStatus.Type;
 
 
 import java.io.IOException;
@@ -24,7 +23,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static oop.taskTreker.manager.Managers.getDefault;
 import static oop.taskTreker.server.HttpTaskServer.Endpoint.*;
 
 
@@ -195,7 +193,7 @@ public class HttpTaskServer {
             try (InputStream is = exchange.getRequestBody()) {
                 String taskFromInputStream = new String(is.readAllBytes(), DEFAULT_CHARSET);
                 Task task = gson.fromJson(taskFromInputStream, Task.class);
-                TaskType typeOfTask = task.getType();
+                Type typeOfTask = task.getType();
                 switch (typeOfTask) {
                     case TASK -> managerTask.addNewTask(task);
                     case EPIC -> managerTask.addEpicId((Epic) task);

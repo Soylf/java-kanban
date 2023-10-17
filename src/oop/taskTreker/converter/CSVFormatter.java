@@ -1,7 +1,7 @@
-package oop.taskTreker.manager.fileManager;
+package oop.taskTreker.converter;
 
 import oop.taskTreker.task.typeAndStatus.Status;
-import oop.taskTreker.task.typeAndStatus.TaskType;
+import oop.taskTreker.task.typeAndStatus.Type;
 import oop.taskTreker.manager.historyManager.HistoryManager;
 import oop.taskTreker.task.*;
 
@@ -38,7 +38,7 @@ public class CSVFormatter {
         try {
             if (!line.isBlank() && !line.isEmpty()) {
                 String[] tokens = line.split(",");
-                TaskType type = TaskType.valueOf(tokens[1]);
+                Type type = Type.valueOf(tokens[1]);
                 for (int i = 0; i < tokens.length; i++) {
                     switch (type) {
                         case TASK:
@@ -95,8 +95,8 @@ public class CSVFormatter {
         }
         return viewedIds.toString();
     }
-    public static String typeOfTaskToString(TaskType type) {
-        for (TaskType value : TaskType.values()) {
+    public static String typeOfTaskToString(Type type) {
+        for (Type value : Type.values()) {
             if (type.equals(value)) {
                 return type.toString();
             }
@@ -113,7 +113,7 @@ public class CSVFormatter {
     }
 
 
-    static List<Long> historyFromString(String historyStr) {
+    public static List<Long> historyFromString(String historyStr) {
         if (historyStr.isEmpty()) {
             return Collections.emptyList();
         } else {

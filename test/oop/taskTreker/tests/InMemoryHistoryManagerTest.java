@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 
 import static oop.taskTreker.task.typeAndStatus.Status.NEW;
-import static oop.taskTreker.task.typeAndStatus.TaskType.*;
+import static oop.taskTreker.task.typeAndStatus.Type.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
